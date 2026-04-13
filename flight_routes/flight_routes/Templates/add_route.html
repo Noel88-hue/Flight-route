@@ -1,0 +1,10 @@
+<h2>Add Airport Route</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add</button>
+</form>
+
+<a href="/search/">Search</a> |
+<a href="/longest/">Longest</a> |
+<a href="/shortest/">Shortest</a>

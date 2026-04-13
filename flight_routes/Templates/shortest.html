@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card p-5 mb-4">
+            <h3 class="mb-4 text-center" style="color: #2c3e50; font-weight: 700;">Find Shortest Match</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label fw-bold text-muted">Start Airport Code</label>
+                    <input type="text" name="start" class="form-control form-control-lg bg-light" required placeholder="e.g. JFK">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-bold text-muted">End Airport Code</label>
+                    <input type="text" name="end" class="form-control form-control-lg bg-light" required placeholder="e.g. LAX">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Find Route 🛣️</button>
+            </form>
+        </div>
+        
+        {% if request.method == 'POST' %}
+            {% if result %}
+                <div class="card p-4" style="border-left: 5px solid #2ecc71;">
+                    <h4 style="color: #2ecc71; font-weight: 700;">Optimal Route Found</h4>
+                    <ul class="list-unstyled mt-3 mb-0" style="font-size: 1.1rem; color: #5a6a7c;">
+                        <li class="mb-2"><strong>✈️ Serving Node:</strong> {{ result.airport_code }}</li>
+                        <li class="mb-2"><strong>📍 Position:</strong> {{ result.position }}</li>
+                        <li><strong>⏱️ Duration:</strong> {{ result.duration }} mins</li>
+                    </ul>
+                </div>
+            {% else %}
+                <div class="card p-4" style="border-left: 5px solid #f39c12;">
+                    <h5 class="mb-0" style="color: #f39c12;">No route available intersecting these locations.</h5>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

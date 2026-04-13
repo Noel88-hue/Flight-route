@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card p-5 mb-4">
+            <h3 class="mb-4 text-center" style="color: #2c3e50; font-weight: 700;">Search Route Node</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-4 d-flex flex-column gap-3">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Search 🔍</button>
+            </form>
+        </div>
+        
+        {% if request.method == 'POST' %}
+            {% if result is not None %}
+                <div class="card p-4" style="border-left: 5px solid #2ecc71;">
+                    <h4 style="color: #2ecc71; font-weight: 700;">Target Route Identified!</h4>
+                    <ul class="list-unstyled mt-3 mb-0" style="font-size: 1.1rem; color: #5a6a7c;">
+                        <li class="mb-2"><strong>📍 Position:</strong> {{ result.position }}</li>
+                        <li class="mb-2"><strong>✈️ Airport Code:</strong> <span class="badge bg-primary fs-6">{{ result.airport_code }}</span></li>
+                        <li><strong>⏱️ Duration:</strong> {{ result.duration }} mins</li>
+                    </ul>
+                </div>
+            {% else %}
+                <div class="card p-4" style="border-left: 5px solid #e74c3c;">
+                    <h5 class="mb-0" style="color: #e74c3c;">No route found matching these criteria.</h5>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

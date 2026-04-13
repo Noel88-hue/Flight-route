@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card p-5 text-center">
+            <h3 class="mb-4" style="color: #2c3e50; font-weight: 700;">Longest Flight Route</h3>
+            
+            {% if route %}
+                <div class="p-4 rounded" style="background: rgba(52, 152, 219, 0.1); border: 2px dashed #3498db;">
+                    <h1 class="display-4 text-primary font-weight-bold mb-3">{{ route.airport_code }}</h1>
+                    <div class="d-flex justify-content-around text-muted">
+                        <div>
+                            <small class="d-block text-uppercase fw-bold">Position</small>
+                            <span class="fs-5">{{ route.position }}</span>
+                        </div>
+                        <div>
+                            <small class="d-block text-uppercase fw-bold">Duration</small>
+                            <span class="fs-5">{{ route.duration }} min</span>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-warning border-0 shadow-sm rounded-4">
+                    <strong>Notice:</strong> The flight database is currently empty.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
